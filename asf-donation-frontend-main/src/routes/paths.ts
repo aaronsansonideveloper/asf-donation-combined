@@ -2,6 +2,10 @@
 
 export const paths = {
   root: '/',
+  donation: {
+    success: 'donation/success',
+    cancle: "donation/cancel",
+  },
   // Marketplace
   marketplace: {
     root: '/marketplace',

@@ -1,0 +1,102 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: radial-gradient(circle at top, rgba(18, 89, 70, 0.08), transparent 55%), #f8faf9;
+}
+
+.statusCard {
+  width: min(500px, 100%);
+  text-align: center;
+  background: #fff;
+  padding: 48px 40px;
+  border-radius: 32px;
+  box-shadow: 0 24px 50px rgba(15, 23, 42, 0.08);
+}
+
+.statusIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.iconRing {
+  stroke: rgba(31, 72, 51, 0.2);
+}
+
+.iconCheck {
+  stroke: #1f4833;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.75rem;
+  color: #4b5563;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  margin: 0 0 16px;
+  color: #0f172a;
+}
+
+.bodyText {
+  color: #475569;
+  line-height: 1.6;
+  margin: 0 auto 32px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.actionButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 999px;
+  padding: 14px 22px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+}
+
+.primary {
+  background: #115e46;
+  color: #fff;
+  border-color: #115e46;
+}
+
+.primary:hover {
+  background: #0d4c38;
+  border-color: #0d4c38;
+}
+
+.secondary {
+  background: transparent;
+  color: #0f172a;
+  border-color: rgba(15, 23, 42, 0.2);
+}
+
+.secondary:hover {
+  border-color: rgba(15, 23, 42, 0.4);
+  color: #0d4c38;
+}
+
+@media (min-width: 640px) {
+  .actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .actionButton {
+    min-width: 180px;
+  }
+}
