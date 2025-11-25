@@ -7,7 +7,7 @@ export class DonationService {
     private readonly logger = new Logger(DonationService.name);
     constructor(private readonly donationRepo: DonationRepository) { }
 
-    public async create(payload: Pick<IDonationEntity, "user_id" | "group_id" | "token" | "event_id" | "user_email">) {
+    public async create(payload: Pick<IDonationEntity, "user_id" | "group_id" | "token" | "event_id" | "user_email" | "referral_name">) {
         return await this.donationRepo.save(payload);
     }
     public async getByEmail(email: string) {

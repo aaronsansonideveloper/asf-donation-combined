@@ -43,8 +43,15 @@ export default function LoginCoverView() {
           required: true,
         },
       },
+      referral_name: {
+        label: 'Referral Name',
+        schema: Yup.string().required('Referral name is required'),
+        fieldConfig: {
+          required: true,
+        },
+      },
       group_id: {
-        type: 'radio',
+        type: 'select',
         label: 'Group Selection: ',
         defaultValue: '1',
         fieldConfig: {

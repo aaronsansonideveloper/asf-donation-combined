@@ -1,7 +1,7 @@
-import {BadRequestException, Injectable, Logger} from "@nestjs/common";
+import { BadRequestException, Injectable, Logger } from "@nestjs/common";
 import configurations from "apps/main-app/src/utils/config/configurations";
-import {DonationService, GroupService, UserService} from "@app/lib";
-import {StripeService} from "./stripe.service";
+import { DonationService, GroupService, UserService } from "@app/lib";
+import { StripeService } from "./stripe.service";
 import config from "apps/main-app/src/utils/config/configurations";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -12,6 +12,7 @@ export interface IDonationMaking {
     email: string;
     first_name: string;
     last_name: string;
+    referral_name: string;
     group_id: number;
 }
 
@@ -29,17 +30,24 @@ export class DonationProvider {
     }
 
     makeDonation = async (payload: IDonationMaking) => {
-        const token = uuidv4();  
+        const token = uuidv4();
         // check if user exists
         const user = await this.userService.getByEmail(payload.email);
+
         if (!user) {
+            console.log(payload, "payload in the donation making")
+
             const new_user = await this.userService.create({
                 email: payload.email,
                 first_name: payload.first_name,
                 last_name: payload.last_name,
                 group_id: payload.group_id
             });
+
             const stripe_customer = await this.stripeService.createCustomer(payload.email, payload.first_name);
+
+            console.log(`new Stripe customer:`, stripe_customer)
+
             await this.userService.update({
                 id: new_user.id,
                 data: {
@@ -48,43 +56,49 @@ export class DonationProvider {
             });
 
             console.log(stripe_customer.id)
+
             const url = await this.stripeService.createCheckoutSession({
                 customer_id: stripe_customer.id,
-                line_item: {price: config.PRICE_ID},
+                line_item: { price: config.PRICE_ID },
                 user_id: new_user.id,
+                referral_name: payload.referral_name,
                 group_id: payload.group_id,
                 token: token
             });
 
             this.donationService.create({
-                user_id:new_user.id,
+                user_id: new_user.id,
                 user_email: payload.email,
                 group_id: payload.group_id,
-                token:token,
-                event_id:null
+                token: token,
+                referral_name: payload.referral_name,
+                event_id: null
             })
 
-            
+
 
             return url
         }
 
         // create donation checkout session
-        console.log(user.stripe_customer_id)
+        console.log(`user: ${JSON.stringify(user)}`)
+
         const url = await this.stripeService.createCheckoutSession({
             customer_id: user.stripe_customer_id,
-            line_item: {price: config.PRICE_ID},
+            line_item: { price: config.PRICE_ID },
             user_id: user.id,
+            referral_name: payload.referral_name,
             group_id: payload.group_id,
-            token:token
+            token: token
         });
 
         this.donationService.create({
-            user_id:user.id,
+            user_id: user.id,
             user_email: payload.email,
             group_id: payload.group_id,
-            token:token,
-            event_id:null
+            token: token,
+            referral_name: payload.referral_name,
+            event_id: null
         })
 
         return url

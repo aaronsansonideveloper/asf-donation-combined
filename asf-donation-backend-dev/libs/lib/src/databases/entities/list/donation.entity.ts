@@ -13,6 +13,9 @@ export class DonationEntity extends BaseEntity implements IDonationEntity {
     @Column({ type: "varchar", nullable: false })
     user_email: string;
 
+    @Column({type: "varchar", nullable: false})
+    referral_name: string;
+
     @Column({ type: "int" })
     group_id: number;
 

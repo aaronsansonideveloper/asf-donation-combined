@@ -1,6 +1,6 @@
-import {Injectable, Logger} from "@nestjs/common";
-import {UsersRepository} from "../../repositories";
-import {IUserEntity} from "../../entities/interface/user.interface";
+import { Injectable, Logger } from "@nestjs/common";
+import { UsersRepository } from "../../repositories";
+import { IUserEntity } from "../../entities/interface/user.interface";
 
 @Injectable()
 export class UserService {
@@ -9,7 +9,7 @@ export class UserService {
     constructor(private readonly userRepo: UsersRepository) {
     }
 
-    public async create(payload: Pick<IUserEntity, "email" | "first_name" | "last_name" | "group_id" | "stripe_customer_id" >) {
+    public async create(payload: Pick<IUserEntity, "email" | "first_name" | "last_name" | "group_id" | "stripe_customer_id">) {
         return await this.userRepo.save(payload);
     }
 
@@ -19,13 +19,15 @@ export class UserService {
 
     public async getById(id: number) {
         return await this.userRepo.findOne({
-            where: {id}
+            where: { id }
         });
     }
 
-    public async getByEmail(email: string) {
+    public async getByEmail(email: string | null | undefined) {
+        if (!email) return null
+
         return await this.userRepo.findOne({
-            where: {email}
+            where: { email: email }
         });
     };
 

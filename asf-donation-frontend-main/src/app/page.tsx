@@ -1,4 +1,4 @@
-import LoginCoverView from './view';
+import LoginCoverView from './view-updated';
 
 // ----------------------------------------------------------------------
 

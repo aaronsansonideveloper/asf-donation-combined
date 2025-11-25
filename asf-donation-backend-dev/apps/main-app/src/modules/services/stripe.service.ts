@@ -7,8 +7,9 @@ export interface purchaseDemoItem {
     customer_id: string;
     group_id: number;
     user_id: number;
+    referral_name: string;
     line_item: Stripe.Checkout.SessionCreateParams.LineItem;
-    token:string;
+    token: string;
 }
 
 @Injectable()
@@ -48,7 +49,7 @@ export class StripeService {
                     invoice_data: {
                         metadata: {
                             order: "donation for aaron sansoni foundation",
-                            token:payload.token
+                            token: payload.token
                         },
                     }
                 },
@@ -62,7 +63,8 @@ export class StripeService {
                 payment_intent_data: {
                     metadata: {
                         group_id: payload.group_id.toString(),
-                        user_id: payload.user_id.toString()
+                        user_id: payload.user_id.toString(),
+                        referral_name: payload.referral_name
                     },
                 },
                 mode: "payment",
