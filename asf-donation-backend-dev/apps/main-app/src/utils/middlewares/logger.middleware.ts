@@ -1,7 +1,7 @@
 import { ConsoleLogger } from "@nestjs/common";
 import { NextFunction, Request, Response } from "express";
 import { Logger } from "@nestjs/common";
-import { v4 as uuidv4 } from "uuid";
+import { uuidv4 } from "../uuid";
 
 export class LoggerMiddleware extends ConsoleLogger {
   private logger = new Logger();

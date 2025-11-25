@@ -3,7 +3,7 @@ import configurations from "apps/main-app/src/utils/config/configurations";
 import { DonationService, GroupService, UserService } from "@app/lib";
 import { StripeService } from "./stripe.service";
 import config from "apps/main-app/src/utils/config/configurations";
-import { v4 as uuidv4 } from 'uuid';
+import { uuidv4 } from "../../utils/uuid";
 
 // const crypto = require("bcrypt");
 // const uuid = require("uuid");
