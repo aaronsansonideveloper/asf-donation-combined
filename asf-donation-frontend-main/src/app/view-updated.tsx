@@ -1,5 +1,6 @@
 'use client';
 
+// Deprecated
 import LoadingButton from '@mui/lab/LoadingButton';
 import { AppBar, InputLabel, MenuItem, Select, Stack, Toolbar, Typography } from '@mui/material';
 import AuthCoverLayout_v2 from 'src/common/layouts/authLayout_v2';
@@ -16,12 +17,14 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import * as Yup from 'yup';
 import { useState } from 'react';
+import {referrals} from "./clients";
+import useIsMobile from "../common/hooks/useIsMobile";
 
-const referrals = [
-  { label: 'Avarile', referral: 'Avarie Wang' },
-  { label: 'Sparutus', referral: 'Sparutus Cheng' },
-  { label: 'Tester', referral: 'Tester name' },
-];
+// const referrals = [
+//   { label: 'Avarile', referral: 'Avarie Wang' },
+//   { label: 'Sparutus', referral: 'Sparutus Cheng' },
+//   { label: 'Tester', referral: 'Tester name' },
+// ];
 
 interface IDonationInfo {
   firstName: string | null;
@@ -39,6 +42,8 @@ export default function LoginCoverView() {
   const params_utf = UTMInSession ? UTMInSession : utmProcessor.getUTM();
   utmProcessor.setUTMToSession(params_utf);
 
+  const isMobile = useIsMobile();
+
   const { loading } = useFlatInject('authStore', {
     loading: 'IN',
   });
@@ -53,6 +58,11 @@ export default function LoginCoverView() {
 
   const handleSubmit = async () => {
     const { firstName, lastName, email, group, referralName } = donationInfo;
+
+    if (!firstName || !lastName || !email || !group || !referralName) {
+      notify.error('Please fill in all required fields.');
+      return;
+    }
 
     const response = await http.request({
       url: 'api/donation/create-session',
@@ -99,7 +109,7 @@ export default function LoginCoverView() {
 
       <Stack spacing={2}>
         <TextField
-          sx={{ width: 300 }}
+          sx={{ width: isMobile ? "100%" : 300 }}
           label="First Name"
           onChange={(event) => {
             setDonationInfo({
@@ -110,7 +120,7 @@ export default function LoginCoverView() {
         />
 
         <TextField
-          sx={{ width: 300 }}
+          sx={{ width: isMobile ? "100%" : 300 }}
           label="Last Name"
           onChange={(event) => {
             setDonationInfo({
@@ -121,7 +131,7 @@ export default function LoginCoverView() {
         />
 
         <TextField
-          sx={{ width: 300 }}
+          sx={{ width: isMobile ? "100%" : 300 }}
           label="Email"
           onChange={(event) => {
             setDonationInfo({
@@ -137,7 +147,7 @@ export default function LoginCoverView() {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={donationInfo.group}
-          sx={{ width: 300 }}
+          sx={{ width: isMobile ? "100%" : 300 }}
           onChange={(event) => {
             setDonationInfo({
               ...donationInfo,
@@ -164,7 +174,7 @@ export default function LoginCoverView() {
         <Autocomplete
           disablePortal
           options={referrals}
-          sx={{ width: 300 }}
+          sx={{ width: isMobile ? "100%" : 300 }}
           renderInput={(params) => <TextField {...params} label="Referral Name" />}
           onChange={(event: any, newValue: { label: string; referral: string } | null) => {
             setDonationInfo({
