@@ -30,7 +30,7 @@ interface IDonationInfo {
   firstName: string | null;
   lastName: string | null;
   email: string | null;
-  group: string | null;
+  group: number ;
   referralName: string | null;
 }
 
@@ -52,7 +52,7 @@ export default function LoginCoverView() {
     firstName: null,
     lastName: null,
     email: null,
-    group: null,
+    group: 1,
     referralName: null,
   });
 
@@ -151,7 +151,7 @@ export default function LoginCoverView() {
           onChange={(event) => {
             setDonationInfo({
               ...donationInfo,
-              group: event.target.value,
+              group: event.target.value as number,
             });
           }}
         >
@@ -185,7 +185,7 @@ export default function LoginCoverView() {
         />
 
         <LoadingButton
-          sx={{ width: 300 }}
+          sx={{ width: isMobile ? "100%" : 300 }}
           color="inherit"
           size="large"
           type="submit"
