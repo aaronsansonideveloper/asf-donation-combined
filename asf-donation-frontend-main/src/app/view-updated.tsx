@@ -79,7 +79,7 @@ export default function LoginCoverView() {
     console.log(response);
     notify.success('Success!');
 
-    window.open(response.data.data.url, '_blank', 'noopener,noreferrer');
+    window.location.assign(response.data.data.url);
   };
 
   const renderHead = (
