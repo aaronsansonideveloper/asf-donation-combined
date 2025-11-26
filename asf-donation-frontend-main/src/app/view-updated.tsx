@@ -20,12 +20,6 @@ import { useState } from 'react';
 import {referrals} from "./clients";
 import useIsMobile from "../common/hooks/useIsMobile";
 
-// const referrals = [
-//   { label: 'Avarile', referral: 'Avarie Wang' },
-//   { label: 'Sparutus', referral: 'Sparutus Cheng' },
-//   { label: 'Tester', referral: 'Tester name' },
-// ];
-
 interface IDonationInfo {
   firstName: string | null;
   lastName: string | null;

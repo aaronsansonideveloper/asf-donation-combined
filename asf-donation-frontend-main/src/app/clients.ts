@@ -1,8 +1,4 @@
 export const referrals = [
-  { label: 'Avarile', referral: 'Avarie Wang' },
-  { label: 'Sparutus', referral: 'Sparutus Cheng' },
-  { label: 'Tester', referral: 'Tester name' },
-
   { label: 'Akira Sim', referral: "Akira Sim" },
   { label: 'Aleisha Kenney', referral: "Aleisha Kenney" },
   { label: 'Alex Green', referral: "Alex Green" },
